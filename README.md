@@ -1,2 +1,4 @@
 #this is an assignment where i'll learn more about git hub 
-#also i'll work with it 
+#also i'll work with it
+
+#Created two file app.py and config,ini
