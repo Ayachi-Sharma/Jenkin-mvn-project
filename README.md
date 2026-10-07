@@ -5,4 +5,4 @@
 
 #Merged both bugfix and feature branch
 
-#bug: this is a buggy code
+Bug: To check staged revert command
