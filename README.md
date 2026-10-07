@@ -4,3 +4,5 @@
 #Created two file app.py and config,ini
 
 #Merged both bugfix and feature branch
+
+Bug: To check staged revert command
