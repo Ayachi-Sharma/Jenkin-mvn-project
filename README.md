@@ -6,3 +6,6 @@
 #Merged both bugfix and feature branch
 
 Bug: To check staged revert command
+
+#commit 1
+#commit 2
