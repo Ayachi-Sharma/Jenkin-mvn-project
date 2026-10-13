@@ -10,7 +10,7 @@ pipeline{
 		maven 'maven3'
 	}	
 
-	enviornment{
+	environment{
 		APP_NAME = 'invoice-service'
 	}
 
