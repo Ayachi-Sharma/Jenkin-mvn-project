@@ -62,14 +62,14 @@ pipeline {
 	}
 
     
-stage('Deploy') {
-    when {
+    stage('Deploy') {
+        when {
         expression { 
             return env.GIT_BRANCH == 'origin/main' ||
             env.GIT_BRANCH == 'main'}
-    }
-    steps {
-        withCredentials([
+        }
+        steps {
+            withCredentials([
             usernamePassword(
                 credentialsId: 'tomcat-credentials',
                 usernameVariable: 'TOMCAT_USER',
@@ -84,8 +84,19 @@ stage('Deploy') {
                   "http://100.54.143.39:8081/manager/text/deploy?path=/billing-web&update=true"
             '''
         }
+        }
     }
-}
+    
+    stage('Verify') {
+        steps {
+            sh '''
+                curl --fail --silent --show-error \
+                http://100.54.143.39:8081/billing-web/
+            '''
+        }
+    }
+
+
 
 
     }
