@@ -30,6 +30,7 @@ pipeline {
             steps {
                 echo "Checking out source code"
                 checkout scm
+                echo "Git branch detected: ${env.GIT_BRANCH}"
             }
         }
 
@@ -59,6 +60,33 @@ pipeline {
                         fingerprint: true
     		}
 	}
+
+    
+stage('Deploy') {
+    when {
+        expression { 
+            return env.GIT_BRANCH == 'origin/main' ||
+            env.GIT_BRANCH == 'main'}
+    }
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'tomcat-credentials',
+                usernameVariable: 'TOMCAT_USER',
+                passwordVariable: 'TOMCAT_PASSWORD'
+            )
+        ]) {
+            sh '''
+                set +x
+                curl --fail --silent --show-error \
+                  --user "$TOMCAT_USER:$TOMCAT_PASSWORD" \
+                  --upload-file billing-web/target/billing-web-1.0-SNAPSHOT.war \
+                  "http://100.54.143.39:8081/manager/text/deploy?path=/billing-web&update=true"
+            '''
+        }
+    }
+}
+
 
     }
 
