@@ -40,6 +40,7 @@ pipeline {
                 echo "Release Notes: ${params.RELEASE_NOTES}"
                 echo "Building app: ${APP_NAME}"
                 sh 'mvn clean compile'
+                sh 'exit 1'
             }
         }
 
