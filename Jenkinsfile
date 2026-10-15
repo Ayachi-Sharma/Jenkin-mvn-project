@@ -101,13 +101,26 @@ pipeline {
 
     }
 
-    post {
-        success {
-            echo 'Pipeline completed successfully'
-        }
-        failure {
-            echo 'Pipeline failed'
-        }
+    
+post {
+    failure {
+        echo """
+        NOTIFICATION: BUILD FAILURE
+        Job Name: ${env.JOB_NAME}
+        Build Number: ${env.BUILD_NUMBER}
+        Build URL: ${env.BUILD_URL}
+        """
     }
+
+    fixed {
+        echo """
+        NOTIFICATION: BUILD FIXED
+        Job Name: ${env.JOB_NAME}
+        Build Number: ${env.BUILD_NUMBER}
+        Build URL: ${env.BUILD_URL}
+        """
+    }
+}
+
 }
 
