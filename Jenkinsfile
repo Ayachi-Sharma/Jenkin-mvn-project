@@ -52,6 +52,14 @@ pipeline {
                 }
             }
         }
+
+	stage('Archive') {
+    		steps {
+        		archiveArtifacts artifacts: 'billing-web/target/*.war',
+                        fingerprint: true
+    		}
+	}
+
     }
 
     post {
