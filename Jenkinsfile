@@ -81,7 +81,7 @@ pipeline {
                 curl --fail --silent --show-error \
                   --user "$TOMCAT_USER:$TOMCAT_PASSWORD" \
                   --upload-file billing-web/target/billing-web-1.0-SNAPSHOT.war \
-                  "http://100.54.143.39:8081/manager/text/deploy?path=/billing-web&update=true"
+                  "http://54.235.29.88:8081/manager/text/deploy?path=/billing-web&update=true"
             '''
         }
         }
@@ -91,7 +91,7 @@ pipeline {
         steps {
             sh '''
                 curl --fail --silent --show-error \
-                http://100.54.143.39:8081/billing-web/
+                http://54.235.29.88:8081/billing-web/
             '''
         }
     }
