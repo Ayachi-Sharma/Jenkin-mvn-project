@@ -66,6 +66,31 @@ pipeline {
 	}
 
 	
+	stage('Docker Push') {
+    		steps {
+        		withCredentials([usernamePassword(
+            			credentialsId: 'docker-hub',
+            			usernameVariable: 'DOCKERHUB_USERNAME',
+            			passwordVariable: 'DOCKERHUB_TOKEN'
+        		)]) {
+            		sh '''
+                		set +x
+                		echo "$DOCKERHUB_TOKEN" | docker login \
+                    			--username "$DOCKERHUB_USERNAME" \
+                    			--password-stdin
+
+                		docker tag invoice-service:${BUILD_NUMBER} \
+                    			"$DOCKERHUB_USERNAME/invoice-service:${BUILD_NUMBER}"
+
+                		docker push "$DOCKERHUB_USERNAME/invoice-service:${BUILD_NUMBER}"
+
+                		docker logout
+            		'''
+        		}
+    		}
+	}
+
+	
 	stage('Archive') {
     		steps {
         		archiveArtifacts artifacts: 'billing-web/target/*.war',
@@ -93,7 +118,7 @@ pipeline {
                 curl --fail --silent --show-error \
                   --user "$TOMCAT_USER:$TOMCAT_PASSWORD" \
                   --upload-file billing-web/target/billing-web-1.0-SNAPSHOT.war \
-                  "http://54.221.8.78:8081/manager/text/deploy?path=/billing-web&update=true"
+                  "http://100.27.205.230:8081/manager/text/deploy?path=/billing-web&update=true"
             '''
         }
         }
@@ -103,7 +128,7 @@ pipeline {
         steps {
             sh '''
                 curl --fail --silent --show-error \
-                http://54.221.8.78:8081/billing-web/
+                http://100.27.205.230:8081/billing-web/
             '''
         }
     }
