@@ -54,6 +54,18 @@ pipeline {
             }
         }
 
+	
+	stage('Docker Build') {
+    		steps {
+        		echo "Building Docker image for build ${BUILD_NUMBER}"
+
+        	sh '''
+            		docker build -t invoice-service:${BUILD_NUMBER} .
+        	'''
+    		}
+	}
+
+	
 	stage('Archive') {
     		steps {
         		archiveArtifacts artifacts: 'billing-web/target/*.war',
