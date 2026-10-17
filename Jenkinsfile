@@ -124,7 +124,7 @@ pipeline {
 	sh '''
             docker stop billing-web || true
             docker rm billing-web || true
-            docker run -d --name invoice-service -p 8082:8080 yourdockerhubuser/invoice-service:${BUILD_NUMBER}
+            docker run -d --name invoice-service -p 8082:8080 ayachisharma/invoice-service:${BUILD_NUMBER}
         '''
         }
     }
