@@ -122,10 +122,11 @@ pipeline {
             '''
         }
 	sh '''
-            docker stop billing-web || true
-            docker rm billing-web || true
-            docker run -d --name invoice-service -p 8082:8080 ayachisharma/invoice-service:${BUILD_NUMBER}
-        '''
+        docker rm -f invoice-service || true
+        docker run -d --name invoice-service \
+            -p 8082:8080 \
+            ayachisharma/invoice-service:${BUILD_NUMBER}
+    '''
         }
     }
     
@@ -137,13 +138,8 @@ pipeline {
             '''
         }
     }
-
-
-
-
     }
 
-    
 post {
     failure {
         echo """
@@ -163,6 +159,4 @@ post {
         """
     }
 }
-
 }
-
