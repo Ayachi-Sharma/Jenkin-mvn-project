@@ -17,7 +17,7 @@ COPY billing-web/src billing-web/src
 RUN mvn clean package
 
 # Stage 2: Runtime image with Tomcat and JRE
-FROM tomcat:11.0.26-jre21-temurin
+FROM tomcat:11-jre21-temurin
 
 RUN rm -rf /usr/local/tomcat/webapps/*
 
