@@ -17,11 +17,13 @@ COPY billing-web/src billing-web/src
 RUN mvn clean package
 
 # Stage 2: Runtime image with Tomcat and JRE
-FROM tomcat:11-jre21-temurin
+FROM tomcat:11-jre21-temurin-noble
 
 RUN rm -rf /usr/local/tomcat/webapps/*
+RUN rm -f /usr/bin/pebble
 
 COPY --from=builder /app/billing-web/target/billing-web-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/invoice-service.war
+RUN chown -R ubuntu:root /usr/local/tomcat/webapps /usr/local/tomcat/conf /usr/local/tomcat/work /usr/local/tomcat/logs /usr/local/tomcat/temp
 
 USER 1000:0
 
