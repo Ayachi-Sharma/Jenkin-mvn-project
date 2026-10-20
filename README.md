@@ -61,6 +61,14 @@ Database data may persist in the named volume after stopping the stack.
 - Configure credentials through Jenkins Credentials and local environment variables.
 - Restrict access to cloud instances and exposed ports.
 
+## Application Preview
+![InvoiceFlow Dashboard](screenshots/invoice-dashboard.png)
+
+## CI/CD Pipeline
+![Jenkins Pipeline](screenshots/jenkins-pipeline.png)
+
+## Docker Swarm Deployment
+![Docker Swarm Containers](screenshots/docker-containers.png)
 ---
 
 *Educational DevOps project built to practise CI/CD, containerization, and deployment automation.*
