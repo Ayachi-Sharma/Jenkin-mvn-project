@@ -118,7 +118,7 @@ pipeline {
                 curl --fail --silent --show-error \
                   --user "$TOMCAT_USER:$TOMCAT_PASSWORD" \
                   --upload-file billing-web/target/billing-web-1.0-SNAPSHOT.war \
-                  "http://100.27.205.230:8081/manager/text/deploy?path=/billing-web&update=true"
+                  "$TOMCAT_BASE_URL/manager/text/deploy?path=/billing-web&update=true"
             '''
         }
 	sh '''
@@ -133,7 +133,7 @@ pipeline {
         steps {
             sh '''
                 curl --fail --silent --show-error \
-                http://100.27.205.230:8081/billing-web/
+              "$TOMCAT_BASE_URL/billing-web/"
             '''
         }
     }
